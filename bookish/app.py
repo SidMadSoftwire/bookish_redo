@@ -20,8 +20,14 @@ def create_app():
 
     Migrate(app, db)
 
-    from bookish.controllers.bookish import bookish
-    app.register_blueprint(bookish)
+    from bookish.controllers.BookController import book_controller
+    app.register_blueprint(book_controller)
+
+    from bookish.controllers.UserController import user_controller
+    app.register_blueprint(user_controller)
+
+    from bookish.controllers.AuthController import auth_controller
+    app.register_blueprint(auth_controller)
 
     return app
 

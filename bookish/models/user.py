@@ -6,6 +6,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String())
+    Password = db.Column(db.String())
     Limit = db.Column(db.Integer())
     books = db.relationship('Book', secondary=user_book, back_populates='users')
 

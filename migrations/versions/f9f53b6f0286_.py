@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d9f0de88010c
+Revision ID: f9f53b6f0286
 Revises: 
-Create Date: 2025-05-01 12:12:04.626058
+Create Date: 2025-05-01 14:13:28.451448
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd9f0de88010c'
+revision = 'f9f53b6f0286'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,7 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('Name', sa.String(), nullable=True),
+    sa.Column('Password', sa.String(), nullable=True),
     sa.Column('Limit', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -39,52 +40,52 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'book_id')
     )
-    # ### end Alembic commands ###
 
     op.bulk_insert(sa.table(
         'books',
-     sa.Column('id', sa.Integer),
+        sa.Column('id', sa.Integer),
         sa.Column('Title', sa.String),
         sa.Column('Author', sa.String),
         sa.Column('ISBN', sa.String),
         sa.Column('Quantity', sa.Integer)
-),
-[
-    {'id': 1, 'Title': 'The Great Gatsby', 'Author': 'F. Scott Fitzgerald', 'ISBN': '9780743273565', 'Quantity': 5},
-    {'id': 2, 'Title': '1984', 'Author': 'George Orwell', 'ISBN': '9780451524935', 'Quantity': 10},
-    {'id': 3, 'Title': 'To Kill a Mockingbird', 'Author': 'Harper Lee', 'ISBN': '9780061120084', 'Quantity': 8},
-    {'id': 4, 'Title': 'Brave New World', 'Author': 'Aldous Huxley', 'ISBN': '9780060850524', 'Quantity': 7},
-    {'id': 5, 'Title': 'Moby-Dick', 'Author': 'Herman Melville', 'ISBN': '9781503280786', 'Quantity': 3}
-]
-)
-
+    ),
+        [
+            {'id': 1, 'Title': 'The Great Gatsby', 'Author': 'F. Scott Fitzgerald', 'ISBN': '9780743273565',
+             'Quantity': 5},
+            {'id': 2, 'Title': '1984', 'Author': 'George Orwell', 'ISBN': '9780451524935', 'Quantity': 10},
+            {'id': 3, 'Title': 'To Kill a Mockingbird', 'Author': 'Harper Lee', 'ISBN': '9780061120084', 'Quantity': 8},
+            {'id': 4, 'Title': 'Brave New World', 'Author': 'Aldous Huxley', 'ISBN': '9780060850524', 'Quantity': 7},
+            {'id': 5, 'Title': 'Moby-Dick', 'Author': 'Herman Melville', 'ISBN': '9781503280786', 'Quantity': 3}
+        ]
+    )
 
     op.bulk_insert(sa.table(
         'users',
         sa.Column('id', sa.Integer),
         sa.Column('Name', sa.String),
         sa.Column('Limit', sa.Integer)
-),
-[
-    {'id': 1, 'Name': 'Alice Johnson', 'Limit': 5},
-    {'id': 2, 'Name': 'Bob Smith', 'Limit': 3},
-    {'id': 3, 'Name': 'Charlie Brown', 'Limit': 7},
-    {'id': 4, 'Name': 'Diana Prince', 'Limit': 10},
-    {'id': 5, 'Name': 'Evan Wright', 'Limit': 2}
-]
-)
+    ),
+        [
+            {'id': 1, 'Name': 'Alice Johnson', 'Password': 'Test123', 'Limit': 5},
+            {'id': 2, 'Name': 'Bob Smith', 'Password': 'Test123', 'Limit': 3},
+            {'id': 3, 'Name': 'Charlie Brown', 'Password': 'Test123', 'Limit': 7},
+            {'id': 4, 'Name': 'Diana Prince', 'Password': 'Test123', 'Limit': 10},
+            {'id': 5, 'Name': 'Evan Wright', 'Password': 'Test123', 'Limit': 2}
+        ]
+    )
 
     op.bulk_insert(sa.table(
         'user_book',
         sa.Column('user_id', sa.Integer),
         sa.Column('book_id', sa.Integer)
-),
-[
-    {'user_id': 1, 'book_id': 1},  # Alice Johnson is linked to 'The Great Gatsby'
-    {'user_id': 2, 'book_id': 3}   # Bob Smith is linked to 'To Kill a Mockingbird'
-]
-)
+    ),
+        [
+            {'user_id': 1, 'book_id': 1},  # Alice Johnson is linked to 'The Great Gatsby'
+            {'user_id': 2, 'book_id': 3}  # Bob Smith is linked to 'To Kill a Mockingbird'
+        ]
+    )
 
+    # ### end Alembic commands ###
 
 
 def downgrade():

@@ -1,19 +1,18 @@
 from flask import request
 from bookish.models.book import Book
-from bookish.models.user import User
 from bookish.app import db
 from flask import Blueprint
 
 
-bookish = Blueprint('bookish', __name__)
+book_controller = Blueprint('book_controller', __name__)
 
 
-@bookish.route('/healthcheck')
+@book_controller.route('/healthcheck')
 def health_check():
     return {"status": "OK"}
 
 
-@bookish.route('/book', methods=['POST', 'GET'])
+@book_controller.route('/book', methods=['POST', 'GET'])
 def get_all_books():
     if request.method == 'POST':
         if request.is_json:
@@ -40,7 +39,7 @@ def get_all_books():
         return {"error" : "request method not supported"}
 
 
-@bookish.route('/book/<id>', methods=['GET'])
+@book_controller.route('/book/<id>', methods=['GET'])
 def get_book_by_id(id):
     book = Book.query.get(id)
     if book is None:
@@ -49,23 +48,3 @@ def get_book_by_id(id):
         return {'id' : book.id, 'title': book.Title, 'author': book.Author, 'isbn' : book.ISBN, 'quantity' : book.Quantity}
 
 
-@bookish.route('/user', methods=['POST', 'GET'])
-def get_all_users():
-    users = User.query.all()
-    results = [
-                {
-                    'id': user.id,
-                    'name': user.Name,
-                    'limit': user.Limit,
-                    'books': [{ 'title' : book.Title } for book in user.books]
-                } for user in users]
-    return {"users": results}
-
-
-@bookish.route('/user/<int:id>', methods=['GET'])
-def get_user_by_id(id):
-    user = User.query.get(id)
-    if user is None:
-        return {"error": "User does not exist"}
-    else:
-        return {"id": user.id, "name": user.Name, "limit": user.Limit, "books": [{ 'title' : book.Title } for book in user.books]}
