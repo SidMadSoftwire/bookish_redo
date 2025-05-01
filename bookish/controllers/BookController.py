@@ -38,13 +38,3 @@ def get_all_books():
     else:
         return {"error" : "request method not supported"}
 
-
-@book_controller.route('/book/<id>', methods=['GET'])
-def get_book_by_id(id):
-    book = Book.query.get(id)
-    if book is None:
-        return {"error": "Book not found"}
-    else:
-        return {'id' : book.id, 'title': book.Title, 'author': book.Author, 'isbn' : book.ISBN, 'quantity' : book.Quantity}
-
-

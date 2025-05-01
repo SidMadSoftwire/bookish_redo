@@ -1,5 +1,4 @@
 from bookish.app import db
-from bookish.models.user_book import user_book
 
 
 class Book(db.Model):
@@ -12,7 +11,6 @@ class Book(db.Model):
     Author = db.Column(db.String())
     ISBN = db.Column(db.String())
     Quantity = db.Column(db.Integer)
-    users = db.relationship('User', secondary=user_book, back_populates='books')
 
     def __init__(self, title, author, isbn, quantity):
         self.Title = title
