@@ -2,7 +2,9 @@ import logging
 from logging.config import fileConfig
 
 from flask import current_app
-
+from bookish.models.user_book import user_book
+from bookish.models.user import User
+from bookish.models.book import Book
 from alembic import context
 
 # this is the Alembic Config object, which provides

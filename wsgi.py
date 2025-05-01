@@ -3,7 +3,6 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 from bookish.app import create_app
-import os
 
 app = create_app()
 
