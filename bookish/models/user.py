@@ -10,8 +10,9 @@ class User(db.Model):
     Limit = db.Column(db.Integer())
     books = db.relationship('Book', secondary=user_book, back_populates='users')
 
-    def __init__(self, name, limit):
+    def __init__(self, name, password, limit):
         self.Name = name
+        self.Password = password
         self.Limit = limit
 
 
@@ -22,5 +23,6 @@ class User(db.Model):
         return {
             'id': self.id,
             'Name': self.Name,
+            'Password': self.Password,
             'Limit': self.Limit
         }

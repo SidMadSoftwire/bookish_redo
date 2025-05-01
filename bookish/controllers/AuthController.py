@@ -11,10 +11,12 @@ def user_login():
         if request.is_json:
             data = request.get_json()
             user_name = data['user_name']
-            if not User.query.filter_by(username=user_name).Any():
+            user = User.query.filter_by(Name=user_name).first()
+            print(user.Name)
+            if not user:
                 return { "Error": "Invalid username" }, 401
-            password = User.query.filter_by(username=user_name).first().password
-            if data['password'] != password:
+            print(user.Password)
+            if data['password'] != user.Password:
                 return { "Error": "Invalid password" }, 401
             session['user_name'] = user_name
             return { "Success": True }, 200
