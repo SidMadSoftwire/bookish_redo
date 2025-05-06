@@ -22,5 +22,8 @@ def create_app():
     from bookish.controllers.BookController import book_controller
     app.register_blueprint(book_controller)
 
+    from bookish.controllers.SearchController import search_controller
+    app.register_blueprint(search_controller)
+
     return app
 

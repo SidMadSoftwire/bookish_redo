@@ -10,14 +10,14 @@ def test_adding_book():
         rand = str(random.randrange(10000000, 10000000000))
 
         app.test_client().post("/books", json={
-            "title": "Test Book",
+            "title": "A New Book",
             "author": "J. Doe",
             "isbn": rand,
             "stock": 2
         })
 
         book = Books.query.filter(Books.isbn == rand).first()
-        assert book.title == "Test Book" and book.author == "J. Doe" and book.stock == 2
+        assert book.title == "A New Book" and book.author == "J. Doe" and book.stock == 2
 
 def test_updating_book():
     app = create_app()

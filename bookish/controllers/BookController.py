@@ -41,8 +41,7 @@ def handle_books():
 
     elif request.method == 'GET':
         books = Books.query.order_by("title").all()
-        results = [
-                {
+        results = [{
                     'id': book.id,
                     'title': book.title,
                     'author': book.author,
