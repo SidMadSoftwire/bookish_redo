@@ -9,7 +9,7 @@ class Books(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String())
     author = db.Column(db.String())
-    isbn = db.Column(db.String())
+    isbn = db.Column(db.String(), unique=True)
     stock = db.Column(db.Integer)
 
     def __init__(self, title, author, isbn, stock):

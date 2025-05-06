@@ -19,5 +19,8 @@ def create_app():
     migrate.init_app(app, db)
 
 
+    from bookish.controllers.BookController import book_controller
+    app.register_blueprint(book_controller)
+
     return app
 

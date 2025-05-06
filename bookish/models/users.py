@@ -7,7 +7,7 @@ class Users(db.Model):
 
     # Here we outline what columns we want in our database
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String())
+    username = db.Column(db.String(), unique=True)
     password = db.Column(db.String())
 
     def __init__(self, username, password):
