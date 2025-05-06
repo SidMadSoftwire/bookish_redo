@@ -1,5 +1,5 @@
 from flask import request
-from bookish.models.book import Book
+from bookish.models.books import Books
 from bookish.app import db
 from flask import Blueprint
 
@@ -17,7 +17,7 @@ def get_all_books():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            new_example = Book(Title=data['title'], Author=data['author'], ISBN=data['isbn'], Quantity=data['quantity'])
+            new_example = Books(Title=data['title'], Author=data['author'], ISBN=data['isbn'], Quantity=data['quantity'])
             db.session.add(new_example)
             db.session.commit()
             return {"message": "New example has been created successfully."}
@@ -25,7 +25,7 @@ def get_all_books():
             return {"error": "The request payload is not in JSON format"}
 
     elif request.method == 'GET':
-        books = Book.query.all()
+        books = Books.query.all()
         results = [
                 {
                     'id': book.id,
